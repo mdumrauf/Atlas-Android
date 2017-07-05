@@ -152,7 +152,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         binding.avatar.init(mPicasso);
 
         ConversationItemViewModel viewModel = new ConversationItemViewModel(mLayerClient, mConversationFormatter, mConversationClickListener);
-        return new ViewHolder(mLayerClient, binding, viewModel, mConversationStyle);
+        return new ViewHolder(binding, viewModel, mConversationStyle);
     }
 
     @Override
@@ -273,13 +273,11 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final UiConversationItemBinding mConversationItemBinding;
         private final ConversationStyle mConversationStyle;
-        private LayerClient mLayerClient;
         private ConversationItemViewModel mViewModel;
 
 
-        public ViewHolder(LayerClient layerClient, UiConversationItemBinding binding, ConversationItemViewModel viewModel, ConversationStyle conversationStyle) {
+        public ViewHolder(UiConversationItemBinding binding, ConversationItemViewModel viewModel, ConversationStyle conversationStyle) {
             super(binding.getRoot());
-            mLayerClient = layerClient;
             mConversationItemBinding = binding;
             mViewModel = viewModel;
             mConversationStyle = conversationStyle;
