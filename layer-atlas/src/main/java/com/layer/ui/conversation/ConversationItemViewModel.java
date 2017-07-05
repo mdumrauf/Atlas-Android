@@ -34,10 +34,11 @@ public class ConversationItemViewModel extends BaseObservable {
 
     public void setConversation(Conversation conversation) {
         mConversation = conversation;
-        for (Identity participant : conversation.getParticipants()) {
-            if (!participant.equals(mLayerClient.getAuthenticatedUser())) {
-                mParticipants.add(participant);
-            }
+        mParticipants.clear();
+        mParticipants.addAll(conversation.getParticipants());
+
+        if (mParticipants.contains(mLayerClient.getAuthenticatedUser())) {
+            mParticipants.remove(mLayerClient.getAuthenticatedUser());
         }
         notifyChange();
     }
