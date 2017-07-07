@@ -1,11 +1,10 @@
-package com.layer.ui.conversation;
+package com.layer.ui.conversationitem;
 
 import android.content.Context;
 
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
-import com.layer.ui.util.ConversationItemFormatter;
 
 import org.junit.Before;
 import org.junit.Test;

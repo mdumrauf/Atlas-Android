@@ -18,7 +18,7 @@
 
     <data>
 
-        <import type="com.layer.ui.conversation.ConversationItemViewModel"/>
+        <import type="com.layer.ui.conversationitem.ConversationItemViewModel"/>
 
         <import type="com.layer.ui.util.ConversationStyle"/>
 

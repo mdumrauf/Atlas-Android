@@ -1,14 +1,12 @@
-package com.layer.ui.conversation;
+package com.layer.ui.conversationitem;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
-import com.layer.ui.util.ConversationItemFormatter;
 
 import java.util.HashSet;
 import java.util.Set;

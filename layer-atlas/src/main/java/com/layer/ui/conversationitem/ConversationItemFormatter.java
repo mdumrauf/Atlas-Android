@@ -1,4 +1,4 @@
-package com.layer.ui.util;
+package com.layer.ui.conversationitem;
 
 import android.content.Context;
 
@@ -8,6 +8,7 @@ import com.layer.sdk.messaging.Message;
 import com.layer.ui.R;
 import com.layer.ui.messagetypes.CellFactory;
 import com.layer.ui.messagetypes.generic.GenericCellFactory;
+import com.layer.ui.util.Util;
 
 import java.text.DateFormat;
 import java.util.Calendar;

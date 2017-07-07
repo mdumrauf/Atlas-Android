@@ -1,4 +1,4 @@
-package com.layer.ui.conversation;
+package com.layer.ui.conversationitem;
 
 import com.layer.sdk.messaging.Conversation;
 
