@@ -93,8 +93,8 @@ public class ConversationItemViewModelTest {
         ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
-        assertThat(viewModel.getParticipants().contains(participant1), is(false));
-        assertThat(viewModel.getParticipants().contains(participant2), is(true));
-        assertThat(viewModel.getParticipants().contains(participant3), is(true));
+        assertThat(viewModel.getParticipantsMinusAuthenticatedUser().contains(participant1), is(false));
+        assertThat(viewModel.getParticipantsMinusAuthenticatedUser().contains(participant2), is(true));
+        assertThat(viewModel.getParticipantsMinusAuthenticatedUser().contains(participant3), is(true));
     }
 }

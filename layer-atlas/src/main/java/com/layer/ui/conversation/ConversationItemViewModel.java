@@ -19,7 +19,7 @@ public class ConversationItemViewModel extends BaseObservable {
 
     // View Data
     public Conversation mConversation;
-    protected Set<Identity> mParticipants;
+    protected Set<Identity> mParticipantsMinusAuthenticatedUser;
 
     // Listeners
     protected OnConversationItemClickListener mOnConversationItemClickListener;
@@ -29,16 +29,16 @@ public class ConversationItemViewModel extends BaseObservable {
         mConversationItemFormatter = conversationItemFormatter;
         mLayerClient = layerClient;
         mOnConversationItemClickListener = onConversationItemClickListener;
-        mParticipants = new HashSet<>();
+        mParticipantsMinusAuthenticatedUser = new HashSet<>();
     }
 
     public void setConversation(Conversation conversation) {
         mConversation = conversation;
-        mParticipants.clear();
-        mParticipants.addAll(conversation.getParticipants());
+        mParticipantsMinusAuthenticatedUser.clear();
+        mParticipantsMinusAuthenticatedUser.addAll(conversation.getParticipants());
 
-        if (mParticipants.contains(mLayerClient.getAuthenticatedUser())) {
-            mParticipants.remove(mLayerClient.getAuthenticatedUser());
+        if (mParticipantsMinusAuthenticatedUser.contains(mLayerClient.getAuthenticatedUser())) {
+            mParticipantsMinusAuthenticatedUser.remove(mLayerClient.getAuthenticatedUser());
         }
         notifyChange();
     }
@@ -76,8 +76,8 @@ public class ConversationItemViewModel extends BaseObservable {
     }
 
     @Bindable
-    public Set<Identity> getParticipants() {
-        return mParticipants;
+    public Set<Identity> getParticipantsMinusAuthenticatedUser() {
+        return mParticipantsMinusAuthenticatedUser;
     }
 
     // Actions
