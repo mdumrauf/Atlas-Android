@@ -2,7 +2,6 @@ package com.layer.ui.util;
 
 import android.content.Context;
 
-import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
 import com.layer.sdk.messaging.Message;
@@ -44,16 +43,15 @@ public class ConversationItemFormatter {
         }
     }
 
-    public String getConversationTitle(LayerClient client, Conversation conversation) {
-        return getConversationTitle(client, conversation, conversation.getParticipants());
+    public String getConversationTitle(Identity authenticatedUser, Conversation conversation) {
+        return getConversationTitle(authenticatedUser, conversation, conversation.getParticipants());
     }
 
-    public String getConversationTitle(LayerClient client, Conversation conversation, Set<Identity> participants) {
+    public String getConversationTitle(Identity authenticatedUser, Conversation conversation, Set<Identity> participants) {
         String metadataTitle = getConversationMetadataTitle(conversation);
         if (metadataTitle != null) return metadataTitle.trim();
 
         StringBuilder sb = new StringBuilder();
-        Identity authenticatedUser = client.getAuthenticatedUser();
         for (Identity participant : participants) {
             if (participant.equals(authenticatedUser)) continue;
             String initials = participants.size() > 2 ? Util.getInitials(participant) : Util.getDisplayName(participant);

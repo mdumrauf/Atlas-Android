@@ -2,6 +2,7 @@ package com.layer.ui.conversation;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.layer.sdk.LayerClient;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class ConversationItemViewModel extends BaseObservable {
     //View Logic
     protected final ConversationItemFormatter mConversationItemFormatter;
-    protected LayerClient mLayerClient;
+    protected Identity mAuthenticatedUser;
 
     // View Data
     public Conversation mConversation;
@@ -25,21 +26,20 @@ public class ConversationItemViewModel extends BaseObservable {
     protected OnConversationItemClickListener mOnConversationItemClickListener;
 
 
-    public ConversationItemViewModel(LayerClient layerClient, ConversationItemFormatter conversationItemFormatter, OnConversationItemClickListener onConversationItemClickListener) {
+    public ConversationItemViewModel(ConversationItemFormatter conversationItemFormatter, OnConversationItemClickListener onConversationItemClickListener) {
         mConversationItemFormatter = conversationItemFormatter;
-        mLayerClient = layerClient;
         mOnConversationItemClickListener = onConversationItemClickListener;
         mParticipantsMinusAuthenticatedUser = new HashSet<>();
     }
 
-    public void setConversation(Conversation conversation) {
+    public void setConversation(@NonNull Conversation conversation, @NonNull Identity authenticatedUser) {
         mConversation = conversation;
         mParticipantsMinusAuthenticatedUser.clear();
-        mParticipantsMinusAuthenticatedUser.addAll(conversation.getParticipants());
 
-        if (mParticipantsMinusAuthenticatedUser.contains(mLayerClient.getAuthenticatedUser())) {
-            mParticipantsMinusAuthenticatedUser.remove(mLayerClient.getAuthenticatedUser());
-        }
+        mParticipantsMinusAuthenticatedUser.addAll(conversation.getParticipants());
+        mParticipantsMinusAuthenticatedUser.remove(authenticatedUser);
+        mAuthenticatedUser = authenticatedUser;
+
         notifyChange();
     }
 
@@ -52,7 +52,7 @@ public class ConversationItemViewModel extends BaseObservable {
 
     @Bindable
     public String getTitle() {
-        return mConversationItemFormatter.getConversationTitle(mLayerClient, mConversation, mConversation.getParticipants());
+        return mConversationItemFormatter.getConversationTitle(mAuthenticatedUser, mConversation, mConversation.getParticipants());
     }
 
     @Bindable

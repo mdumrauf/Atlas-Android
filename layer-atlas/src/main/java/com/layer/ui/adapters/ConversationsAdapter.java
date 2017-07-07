@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
+import com.layer.sdk.messaging.Identity;
 import com.layer.sdk.messaging.Message;
 import com.layer.sdk.query.Predicate;
 import com.layer.sdk.query.Query;
@@ -150,14 +151,14 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         UiConversationItemBinding binding = UiConversationItemBinding.inflate(mInflater, parent, false);
         binding.avatar.init(mPicasso);
 
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(mLayerClient, mConversationItemFormatter, mConversationClickListener);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(mConversationItemFormatter, mConversationClickListener);
         return new ViewHolder(binding, viewModel, mConversationStyle);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         mQueryController.updateBoundPosition(position);
-        viewHolder.bind(mQueryController.getItem(position));
+        viewHolder.bind(mQueryController.getItem(position), mLayerClient.getAuthenticatedUser());
     }
 
     @Override
@@ -282,8 +283,8 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
             mConversationStyle = conversationStyle;
         }
 
-        public void bind(final Conversation conversation) {
-            mViewModel.setConversation(conversation);
+        public void bind(final Conversation conversation, Identity authenticatedUser) {
+            mViewModel.setConversation(conversation, authenticatedUser);
             mConversationItemBinding.setViewModel(mViewModel);
             mConversationItemBinding.setStyle(mConversationStyle);
 
