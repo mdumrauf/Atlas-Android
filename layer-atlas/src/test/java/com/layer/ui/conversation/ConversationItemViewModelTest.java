@@ -5,7 +5,7 @@ import android.content.Context;
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
-import com.layer.ui.util.ConversationFormatter;
+import com.layer.ui.util.ConversationItemFormatter;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class ConversationItemViewModelTest {
     private static final String CONVERSATION_TIMESTAMP = "3 hours ago";
 
     @Mock
-    ConversationFormatter conversationFormatter;
+    ConversationItemFormatter mConversationItemFormatter;
     @Mock
     Conversation conversation;
     @Mock
@@ -42,9 +42,9 @@ public class ConversationItemViewModelTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        when(conversationFormatter.getConversationTitle(any(LayerClient.class), any(Conversation.class), any((Set.class)))).thenReturn(CONVERSATION_TITLE);
-        when(conversationFormatter.getLastMessagePreview(any(Conversation.class))).thenReturn(CONVERSATION_SUBTITLE);
-        when(conversationFormatter.getTimeStamp(any(Conversation.class))).thenReturn(CONVERSATION_TIMESTAMP);
+        when(mConversationItemFormatter.getConversationTitle(any(LayerClient.class), any(Conversation.class), any((Set.class)))).thenReturn(CONVERSATION_TITLE);
+        when(mConversationItemFormatter.getLastMessagePreview(any(Conversation.class))).thenReturn(CONVERSATION_SUBTITLE);
+        when(mConversationItemFormatter.getTimeStamp(any(Conversation.class))).thenReturn(CONVERSATION_TIMESTAMP);
 
         when(conversation.getTotalUnreadMessageCount()).thenReturn(5);
 
@@ -58,7 +58,7 @@ public class ConversationItemViewModelTest {
 
     @Test
     public void testGetTitle() {
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, conversationFormatter, null);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
         assertThat(viewModel.getSubtitle(), is(CONVERSATION_SUBTITLE));
@@ -66,7 +66,7 @@ public class ConversationItemViewModelTest {
 
     @Test
     public void testGetSubtitle() {
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, conversationFormatter, null);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
         assertThat(viewModel.getSubtitle(), is(CONVERSATION_SUBTITLE));
@@ -74,7 +74,7 @@ public class ConversationItemViewModelTest {
 
     @Test
     public void testRightAccessoryText() {
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, conversationFormatter, null);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
         assertThat(viewModel.getRightAccessoryText(), is(CONVERSATION_TIMESTAMP));
@@ -82,7 +82,7 @@ public class ConversationItemViewModelTest {
 
     @Test
     public void testIsUnread() {
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, conversationFormatter, null);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
         assertThat(viewModel.isUnread(), is(true));
@@ -90,7 +90,7 @@ public class ConversationItemViewModelTest {
 
     @Test
     public void testGetParticipantsDoesNotContainAuthenticatedUser() {
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, conversationFormatter, null);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(layerClient, mConversationItemFormatter, null);
         viewModel.setConversation(conversation);
 
         assertThat(viewModel.getParticipants().contains(participant1), is(false));

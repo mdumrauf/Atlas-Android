@@ -19,7 +19,7 @@ import java.util.Set;
  * A formatter that enables us to modify conversation recyclerView items in the UI
  */
 
-public class ConversationFormatter {
+public class ConversationItemFormatter {
     protected static final String METADATA_KEY_CONVERSATION_TITLE = "conversationName";
     protected static final int TIME_HOURS_24 = 24 * 60 * 60 * 1000;
 
@@ -29,7 +29,7 @@ public class ConversationFormatter {
     // TODO : This is a bad place for this to exist. Need to find a better way in round 2
     protected Set<CellFactory> mCellFactories;
 
-    public ConversationFormatter(Context context, DateFormat timeFormat, DateFormat dateFormat, Set<CellFactory> cellFactories) {
+    public ConversationItemFormatter(Context context, DateFormat timeFormat, DateFormat dateFormat, Set<CellFactory> cellFactories) {
         mContext = context;
         mTimeFormat = timeFormat;
         mDateFormat = dateFormat;

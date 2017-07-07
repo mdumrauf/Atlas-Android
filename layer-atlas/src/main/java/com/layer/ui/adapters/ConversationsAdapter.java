@@ -17,11 +17,10 @@ import com.layer.ui.conversation.ConversationItemViewModel;
 import com.layer.ui.conversation.OnConversationItemClickListener;
 import com.layer.ui.databinding.UiConversationItemBinding;
 import com.layer.ui.messagetypes.CellFactory;
-import com.layer.ui.util.ConversationFormatter;
+import com.layer.ui.util.ConversationItemFormatter;
 import com.layer.ui.util.ConversationStyle;
 import com.layer.ui.util.IdentityRecyclerViewEventListener;
 import com.layer.ui.util.Log;
-import com.layer.ui.util.views.SwipeableItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collection;
@@ -40,14 +39,14 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
     private ConversationStyle mConversationStyle;
     private final IdentityRecyclerViewEventListener mIdentityEventListener;
     protected Set<CellFactory> mCellFactories;
-    protected ConversationFormatter mConversationFormatter;
+    protected ConversationItemFormatter mConversationItemFormatter;
 
-    public ConversationsAdapter(Context context, LayerClient client, Picasso picasso, ConversationFormatter conversationFormatter) {
-        this(context, client, picasso, null, conversationFormatter);
+    public ConversationsAdapter(Context context, LayerClient client, Picasso picasso, ConversationItemFormatter conversationItemFormatter) {
+        this(context, client, picasso, null, conversationItemFormatter);
     }
 
-    public ConversationsAdapter(Context context, LayerClient client, Picasso picasso, Collection<String> updateAttributes, ConversationFormatter conversationFormatter) {
-        mConversationFormatter = conversationFormatter;
+    public ConversationsAdapter(Context context, LayerClient client, Picasso picasso, Collection<String> updateAttributes, ConversationItemFormatter conversationItemFormatter) {
+        mConversationItemFormatter = conversationItemFormatter;
         Query<Conversation> query = Query.builder(Conversation.class)
                 /* Only show conversations we're still a member of */
                 .predicate(new Predicate(Conversation.Property.PARTICIPANT_COUNT, Predicate.Operator.GREATER_THAN, 1))
@@ -151,7 +150,7 @@ public class ConversationsAdapter extends RecyclerView.Adapter<ConversationsAdap
         UiConversationItemBinding binding = UiConversationItemBinding.inflate(mInflater, parent, false);
         binding.avatar.init(mPicasso);
 
-        ConversationItemViewModel viewModel = new ConversationItemViewModel(mLayerClient, mConversationFormatter, mConversationClickListener);
+        ConversationItemViewModel viewModel = new ConversationItemViewModel(mLayerClient, mConversationItemFormatter, mConversationClickListener);
         return new ViewHolder(binding, viewModel, mConversationStyle);
     }
 

@@ -7,14 +7,14 @@ import android.view.View;
 import com.layer.sdk.LayerClient;
 import com.layer.sdk.messaging.Conversation;
 import com.layer.sdk.messaging.Identity;
-import com.layer.ui.util.ConversationFormatter;
+import com.layer.ui.util.ConversationItemFormatter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class ConversationItemViewModel extends BaseObservable {
     //View Logic
-    protected final ConversationFormatter mConversationFormatter;
+    protected final ConversationItemFormatter mConversationItemFormatter;
     protected LayerClient mLayerClient;
 
     // View Data
@@ -25,8 +25,8 @@ public class ConversationItemViewModel extends BaseObservable {
     protected OnConversationItemClickListener mOnConversationItemClickListener;
 
 
-    public ConversationItemViewModel(LayerClient layerClient, ConversationFormatter conversationFormatter, OnConversationItemClickListener onConversationItemClickListener) {
-        mConversationFormatter = conversationFormatter;
+    public ConversationItemViewModel(LayerClient layerClient, ConversationItemFormatter conversationItemFormatter, OnConversationItemClickListener onConversationItemClickListener) {
+        mConversationItemFormatter = conversationItemFormatter;
         mLayerClient = layerClient;
         mOnConversationItemClickListener = onConversationItemClickListener;
         mParticipants = new HashSet<>();
@@ -52,17 +52,17 @@ public class ConversationItemViewModel extends BaseObservable {
 
     @Bindable
     public String getTitle() {
-        return mConversationFormatter.getConversationTitle(mLayerClient, mConversation, mConversation.getParticipants());
+        return mConversationItemFormatter.getConversationTitle(mLayerClient, mConversation, mConversation.getParticipants());
     }
 
     @Bindable
     public String getSubtitle() {
-        return mConversationFormatter.getLastMessagePreview(mConversation);
+        return mConversationItemFormatter.getLastMessagePreview(mConversation);
     }
 
     @Bindable
     public String getRightAccessoryText() {
-        return mConversationFormatter.getTimeStamp(mConversation);
+        return mConversationItemFormatter.getTimeStamp(mConversation);
     }
 
     @Bindable
